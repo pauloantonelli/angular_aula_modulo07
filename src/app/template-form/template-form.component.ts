@@ -20,4 +20,13 @@ export class TemplateFormComponent implements OnInit {
 
     // console.log(this.usuario);
   }
+  verificaValidoTocado(campo) {
+    return campo.invalid && campo.touched;
+  }
+  aplicaErroCss(campo) {
+    return {
+      'has-error': this.verificaValidoTocado(campo),
+      'has-feedback' : this.verificaValidoTocado(campo),
+    };
+  }
 }
