@@ -27,6 +27,8 @@
       </div>
     </div>
 
+    <div ngModelGroup="endereco">
+
     <div class="form-group" [ngClass]="aplicaErroCss(cep)">
       <div class="col-md-3">
         <label for="cep" class="control-label">CEP</label>
@@ -89,6 +91,7 @@
 
     <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
 
+    </div>
   </div>
 </form>
 
