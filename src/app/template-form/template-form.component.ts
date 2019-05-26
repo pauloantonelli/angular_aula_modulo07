@@ -22,7 +22,12 @@ export class TemplateFormComponent implements OnInit {
   onSubmit(formulario) {
     console.log(formulario);
 
-    // console.log(this.usuario);
+    this.http.post('https://httpbin.org/post', JSON.stringify(formulario.value))
+    .subscribe(
+      (resposta) => {
+        console.log("TCL: TemplateFormComponent -> onSubmit -> resposta", resposta)
+      }
+    );
   }
   verificaValidoTocado(campo) {
     return campo.invalid && campo.touched;
