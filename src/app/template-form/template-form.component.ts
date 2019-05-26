@@ -30,7 +30,7 @@ export class TemplateFormComponent implements OnInit {
   aplicaErroCss(campo) {
     return {
       'has-error': this.verificaValidoTocado(campo),
-      'has-feedback' : this.verificaValidoTocado(campo),
+      'has-feedback': this.verificaValidoTocado(campo),
     };
   }
 
@@ -54,7 +54,7 @@ export class TemplateFormComponent implements OnInit {
       alert('CEP não encontrado! Por favor tente novamente');
     }
   }
-  consultaCep(cep) {
+  consultaCep(cep, form) {
     const cepLimpo = cep.replace(/\D/g, '');
 
     if (cepLimpo != '') {
@@ -62,11 +62,12 @@ export class TemplateFormComponent implements OnInit {
 
       if (validaCep.test(cepLimpo)) {
         this.http.get('https://viacep.com.br/ws/' + cepLimpo + '/json')
-        .subscribe(
-          (cep) => {
-            this.preencheCamposCallback(cep);
-          }
-        );
+          .subscribe(
+            (cep) => {
+              this.populaDadosForm(cep, form);
+              // this.preencheCamposCallback(cep);
+            }
+          );
       } else {
         this.limpaCampoCep();
         alert('Formato de CEP incorreto, tente novamente!');
@@ -74,5 +75,31 @@ export class TemplateFormComponent implements OnInit {
     } else {
       this.limpaCampoCep();
     }
+  }
+  populaDadosForm(cep, formulario) {
+    /*formulario.setValue({
+      nome: formulario.value.nome,
+      email: formulario.value.email,
+      endereco: {
+        cep: cep.cep,
+        numero: '',
+        complemento: cep.complemento,
+        rua: cep.logradouro,
+        bairro: cep.bairro,
+        cidade: cep.localidade,
+        estado: cep.uf,
+      }
+    });*/
+    formulario.form.patchValue({
+      endereco: {
+        cep: cep.cep,
+        numero: '',
+        complemento: cep.complemento,
+        rua: cep.logradouro,
+        bairro: cep.bairro,
+        cidade: cep.localidade,
+        estado: cep.uf,
+      }
+    });
   }
 }
