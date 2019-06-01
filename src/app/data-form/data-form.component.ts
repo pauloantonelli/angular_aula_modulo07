@@ -7,6 +7,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
   styleUrls: ['./data-form.component.css']
 })
 export class DataFormComponent implements OnInit {
+ // aula-91-forms-data-driven-
 
   public formulario: FormGroup;
 
@@ -20,6 +21,7 @@ export class DataFormComponent implements OnInit {
       email: new FormControl('paulo@paulo.com'),
     });
     */
+   // estilo menos verboso, para formularios grandes
     this.formulario = this.formBuilder.group({
       nome: ['Paulo'],
       email: [null]

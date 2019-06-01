@@ -5,17 +5,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { TemplateFormComponent } from './template-form.component';
-import { FormDebugComponent } from '../form-debug/form-debug.component';
+import { FormDebugModule } from '../form-debug/form-debug.module';
 
 @NgModule({
   declarations: [
     TemplateFormComponent,
-    FormDebugComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormDebugModule
   ],
   exports: [
     TemplateFormComponent
