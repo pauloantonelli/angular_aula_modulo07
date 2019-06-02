@@ -5,10 +5,11 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-data-form',
   templateUrl: './data-form.component.html',
-  styleUrls: ['./data-form.component.css']
+  styleUrls: ['./data-form.component.css'],
+  preserveWhitespaces: true,
 })
 export class DataFormComponent implements OnInit {
- // aula-91-forms-data-driven-
+ // aula-9-forms-data-driven-
 
   public formulario: FormGroup;
   public respostaServidor: object;
@@ -25,14 +26,20 @@ export class DataFormComponent implements OnInit {
     */
    // estilo menos verboso, para formularios grandes
     this.formulario = this.formBuilder.group({
-      nome: ['Paulo'],
-      email: [null]
+      nome: [null],
+      email: ['paulo@paulo.com']
     });
   }
   onSubmit() {
     console.log('this.formulario: ', this.formulario);
 
     this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
-    .subscribe(resposta => this.respostaServidor = resposta);
+    .subscribe(resposta => {
+      this.respostaServidor = resposta;
+      this.resetarFormulario();
+    });
+  }
+  resetarFormulario() {
+    this.formulario.reset();
   }
 }
