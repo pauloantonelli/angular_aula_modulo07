@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -20,14 +20,14 @@ export class DataFormComponent implements OnInit {
     // estilo mais verboso, para formularios pequenos
     /*
     this.formulario = new FormGroup({
-      nome: new FormControl('Paulo'),
-      email: new FormControl('paulo@paulo.com'),
+      nome: new FormControl('Paulo', Validators.minLength(3)),
+      email: new FormControl('paulo@paulo.com', [Validators.required, Validators.email]),
     });
     */
    // estilo menos verboso, para formularios grandes
     this.formulario = this.formBuilder.group({
-      nome: [null],
-      email: ['paulo@paulo.com']
+      nome: [null, [Validators.required, Validators.minLength(3)]],
+      email: ['paulo@paulo.com', [Validators.required, Validators.email]]
     });
   }
   onSubmit() {
