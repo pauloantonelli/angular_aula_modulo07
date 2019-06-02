@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { DataFormComponent } from './data-form.component';
 import { FormDebugModule } from '../form-debug/form-debug.module';
+import { ErrorMessageModule } from '../error-message/error-message.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormDebugModule } from '../form-debug/form-debug.module';
     FormsModule,
     ReactiveFormsModule,
     FormDebugModule,
-    HttpClientModule
+    HttpClientModule,
+    ErrorMessageModule
   ],
   exports: [
     DataFormComponent,

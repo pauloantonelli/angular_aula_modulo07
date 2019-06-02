@@ -31,15 +31,51 @@ export class DataFormComponent implements OnInit {
     });
   }
   onSubmit() {
-    console.log('this.formulario: ', this.formulario);
+    console.log('this.formulario: ', this.formulario.controls);
 
     this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
     .subscribe(resposta => {
       this.respostaServidor = resposta;
-      this.resetarFormulario();
+      // this.resetarFormulario();
     });
   }
   resetarFormulario() {
     this.formulario.reset();
+  }
+
+  validaFormulario(campo) {
+    return this.formulario.get(campo).invalid && this.formulario.controls[campo].touched;
+  }
+
+  verificaNomeRequerido() {
+    const campoNome = this.formulario.get('nome');
+    if (campoNome.errors) {
+      return campoNome.errors['required'] && campoNome.touched;
+    }
+  }
+  verificaNomeTamanho() {
+    const campoNome = this.formulario.get('nome');
+    if (campoNome.errors) {
+      return campoNome.errors['minlength'] && campoNome.touched;
+    }
+  }
+  verificaEmailRequerido() {
+    const campoEmail = this.formulario.get('email');
+    if (campoEmail.errors) {
+        return campoEmail.errors['required'] && campoEmail.touched;
+    }
+  }
+  verificaEmailInvalido() {
+    const campoEmail = this.formulario.get('email');
+    if (campoEmail.errors) {
+        return campoEmail.errors['email'] && campoEmail.touched;
+    }
+  }
+
+  aplicaErroCss(campo) {
+    return {
+      'has-error': this.validaFormulario(campo),
+      'has-feedback': this.validaFormulario(campo)
+    };
   }
 }

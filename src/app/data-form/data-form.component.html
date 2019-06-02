@@ -4,9 +4,13 @@
       <label for="nome">Nome</label>
     </div>
     <div class="col-sm-12">
-      <input type="text" class="form-control" placeholder="Digite seu nome" formControlName="nome">
-      <div class="alert alert-danger">
+      <input type="text" class="form-control" placeholder="Digite seu nome" formControlName="nome"
+        [ngClass]="aplicaErroCss('nome')">
+      <div class="alert alert-danger" [hidden]="!verificaNomeRequerido()">
         O nome é obrigatório
+      </div>
+      <div class="alert alert-danger" [hidden]="!verificaNomeTamanho()">
+        Tamanho minimo para o nome é de 3 caracteres
       </div>
     </div>
 
@@ -17,10 +21,16 @@
         <label for="email">Email</label>
       </div>
       <div class="col-sm-12">
-        <input type="email" class="form-control" placeholder="Digite seu email" formControlName="email">
-        <div class="alert alert-danger">
-          O email é obrigatório
-        </div>
+        <input type="email" class="form-control" placeholder="Digite seu email" formControlName="email"
+          [ngClass]="aplicaErroCss('email')">
+        <app-error-message
+          errorMessage="O email é obrigatório"
+          [estadoInvalido]="verificaEmailRequerido()"
+        ></app-error-message>
+        <app-error-message
+          errorMessage="Email inválido"
+          [estadoInvalido]="verificaEmailInvalido()"
+        ></app-error-message>
       </div>
     </div>
   </div>
@@ -30,7 +40,4 @@
 
 <!--
 -->
-<app-form-debug
-  [form]="formulario"
-  [respostaServidor]="respostaServidor"
-></app-form-debug>
+<app-form-debug [form]="formulario" [respostaServidor]="respostaServidor"></app-form-debug>
