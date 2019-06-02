@@ -1,4 +1,4 @@
-<form #f="ngForm" (submit)="onSubmit(f)" class="form-horizontal">
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-horizontal">
   <div class="form-group" [ngClass]="aplicaErroCss(nome)">
     <div class="col-sm-12">
       <label for="nome">Nome</label>

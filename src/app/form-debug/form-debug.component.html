@@ -12,3 +12,13 @@
     Valores: <br> {{ form.value | json }}
   </pre>
 </div>
+
+<div *ngIf="respostaServidor" style="margin-top: 20px">
+  <div>
+    Resposta do Servidor
+  </div>
+  <br>
+  <pre>
+     {{ respostaServidor | json }}
+  </pre>
+</div>

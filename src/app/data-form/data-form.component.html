@@ -1,4 +1,4 @@
-<form class="form-horizontal" [formGroup]="formulario">
+<form class="form-horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <div class="col-sm-12">
       <label for="nome">Nome</label>
@@ -24,8 +24,12 @@
       </div>
     </div>
   </div>
+  <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 
 <!--
 -->
-<app-form-debug [form]="formulario"></app-form-debug>
+<app-form-debug
+  [form]="formulario"
+  [respostaServidor]="respostaServidor"
+></app-form-debug>

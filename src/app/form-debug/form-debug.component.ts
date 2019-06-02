@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class FormDebugComponent implements OnInit {
 
   @Input() form;
-
+  @Input() respostaServidor;
   constructor() { }
 
   ngOnInit() {

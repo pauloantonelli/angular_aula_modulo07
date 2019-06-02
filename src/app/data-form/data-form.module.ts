@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { DataFormComponent } from './data-form.component';
 import { FormDebugModule } from '../form-debug/form-debug.module';
@@ -14,6 +15,7 @@ import { FormDebugModule } from '../form-debug/form-debug.module';
     FormsModule,
     ReactiveFormsModule,
     FormDebugModule,
+    HttpClientModule
   ],
   exports: [
     DataFormComponent,
