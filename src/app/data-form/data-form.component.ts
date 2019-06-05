@@ -19,6 +19,7 @@ export class DataFormComponent implements OnInit {
   ngOnInit() {
     // estilo mais verboso, para formularios pequenos
 
+    /*
     this.formulario = new FormGroup({
       nome: new FormControl('Paulo', Validators.minLength(3)),
       email: new FormControl('paulo@paulo.com', [Validators.required, Validators.email]),
@@ -32,8 +33,8 @@ export class DataFormComponent implements OnInit {
         estado: new FormControl(null, Validators.required),
       }),
     });
-    console.log('this.formulario: ', this.formulario);
-    /*
+     */
+
    // estilo menos verboso, para formularios grandes
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3)]],
@@ -48,7 +49,6 @@ export class DataFormComponent implements OnInit {
         estado: [null, Validators.required],
       })
     });
-    */
   }
   onSubmit() {
     console.log('this.formulario: ', this.formulario.controls);
