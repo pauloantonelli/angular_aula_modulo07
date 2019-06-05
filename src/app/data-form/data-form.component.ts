@@ -18,31 +18,37 @@ export class DataFormComponent implements OnInit {
 
   ngOnInit() {
     // estilo mais verboso, para formularios pequenos
-    /*
+
     this.formulario = new FormGroup({
       nome: new FormControl('Paulo', Validators.minLength(3)),
       email: new FormControl('paulo@paulo.com', [Validators.required, Validators.email]),
-      cep: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
-      numero: new FormControl(null, Validators.required),
-      complemento: new FormControl(null, Validators.required),
-      rua: new FormControl(null, Validators.required),
-      bairro: new FormControl(null, Validators.required),
-      cidade: new FormControl(null, Validators.required),
-      estado: new FormControl(null, Validators.required),
+      endereco: new FormGroup({
+        cep: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
+        numero: new FormControl(null, Validators.required),
+        complemento: new FormControl(null, Validators.required),
+        rua: new FormControl(null, Validators.required),
+        bairro: new FormControl(null, Validators.required),
+        cidade: new FormControl(null, Validators.required),
+        estado: new FormControl(null, Validators.required),
+      }),
     });
-    */
+    console.log('this.formulario: ', this.formulario);
+    /*
    // estilo menos verboso, para formularios grandes
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3)]],
       email: ['paulo@paulo.com', [Validators.required, Validators.email]],
-      cep: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-      numero: [null, Validators.required],
-      complemento: [null],
-      rua: [null, Validators.required],
-      bairro: [null, Validators.required],
-      cidade: [null, Validators.required],
-      estado: [null, Validators.required],
+      endereco: this.formBuilder.group({
+        cep: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+        numero: [null, Validators.required],
+        complemento: [null],
+        rua: [null, Validators.required],
+        bairro: [null, Validators.required],
+        cidade: [null, Validators.required],
+        estado: [null, Validators.required],
+      })
     });
+    */
   }
   onSubmit() {
     console.log('this.formulario: ', this.formulario.controls);
@@ -58,7 +64,10 @@ export class DataFormComponent implements OnInit {
   }
 
   validaFormulario(campo) {
-    return this.formulario.get(campo).invalid && this.formulario.controls[campo].touched;
+    console.log('campo: ', campo);
+    console.log('this.formulario.controls[campo]: ', this.formulario.controls);
+    // return this.formulario.get(campo).invalid && this.formulario.controls[campo].touched;
+    return this.formulario.get(campo).invalid;
   }
 
   verificaNomeRequerido() {

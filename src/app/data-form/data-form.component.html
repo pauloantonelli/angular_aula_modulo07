@@ -36,11 +36,11 @@
       </div>
     </div>
 
-    <div>
+    <div formGroupName="endereco">
       <div class="form-group">
         <div class="col-md-3">
           <label for="cep" class="control-label">CEP</label>
-          <input type="text" class="form-control" id="cep" formControlName="cep" [ngClass]="aplicaErroCss('cep')">
+          <input type="text" class="form-control" id="cep" formControlName="cep" [ngClass]="aplicaErroCss('endereco.cep')">
           <app-error-message
             errorMessage="O CEP é obrigatório"
             [estadoInvalido]="verificaNomeRequerido()"
@@ -53,7 +53,7 @@
 
         <div class="col-md-3">
           <label for="numero" class="control-label">Número</label>
-          <input type="text" class="form-control" id="numero" formControlName="numero" [ngClass]="aplicaErroCss('numero')">
+          <input type="text" class="form-control" id="numero" formControlName="numero" [ngClass]="aplicaErroCss('endereco.numero')">
           <app-error-message
             errorMessage="O Número é obrigatório"
             [estadoInvalido]="verificaNomeRequerido()"
@@ -69,7 +69,7 @@
       <div class="form-group">
         <div class="col-md-12">
           <label for="rua" class="control-label">Rua</label>
-          <input type="text" class="form-control" id="rua" formControlName="rua" [ngClass]="aplicaErroCss('rua')">
+          <input type="text" class="form-control" id="rua" formControlName="rua" [ngClass]="aplicaErroCss('endereco.rua')">
           <app-error-message
             errorMessage="A Rua é obrigatória"
             [estadoInvalido]="verificaNomeRequerido()"
@@ -80,7 +80,7 @@
       <div class="form-group">
         <div class="col-md-5">
           <label for="bairro" class="control-label">Bairro</label>
-          <input type="text" class="form-control" id="bairro" formControlName="bairro" [ngClass]="aplicaErroCss('bairro')">
+          <input type="text" class="form-control" id="bairro" formControlName="bairro" [ngClass]="aplicaErroCss('endereco.bairro')">
           <app-error-message
             errorMessage="O Bairro é obrigatório"
             [estadoInvalido]="verificaNomeRequerido()"
@@ -89,7 +89,7 @@
 
         <div class="col-md-4">
           <label for="cidade" class="control-label">Cidade</label>
-          <input type="text" class="form-control" id="cidade" formControlName="cidade" [ngClass]="aplicaErroCss('cidade')">
+          <input type="text" class="form-control" id="cidade" formControlName="cidade" [ngClass]="aplicaErroCss('endereco.cidade')">
           <app-error-message
             errorMessage="A Cidade é obrigatória"
             [estadoInvalido]="verificaNomeRequerido()"
@@ -98,7 +98,7 @@
 
         <div class="col-md-3">
           <label for="estado" class="control-label">Estado</label>
-          <input type="text" class="form-control" id="estado" formControlName="estado" [ngClass]="aplicaErroCss('estado')">
+          <input type="text" class="form-control" id="estado" formControlName="estado" [ngClass]="aplicaErroCss('endereco.estado')">
           <app-error-message
             errorMessage="O Estado é obrigatório"
             [estadoInvalido]="verificaNomeRequerido()"
