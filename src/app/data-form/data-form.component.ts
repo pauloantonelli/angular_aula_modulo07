@@ -22,12 +22,26 @@ export class DataFormComponent implements OnInit {
     this.formulario = new FormGroup({
       nome: new FormControl('Paulo', Validators.minLength(3)),
       email: new FormControl('paulo@paulo.com', [Validators.required, Validators.email]),
+      cep: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
+      numero: new FormControl(null, Validators.required),
+      complemento: new FormControl(null, Validators.required),
+      rua: new FormControl(null, Validators.required),
+      bairro: new FormControl(null, Validators.required),
+      cidade: new FormControl(null, Validators.required),
+      estado: new FormControl(null, Validators.required),
     });
     */
    // estilo menos verboso, para formularios grandes
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3)]],
-      email: ['paulo@paulo.com', [Validators.required, Validators.email]]
+      email: ['paulo@paulo.com', [Validators.required, Validators.email]],
+      cep: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      numero: [null, Validators.required],
+      complemento: [null],
+      rua: [null, Validators.required],
+      bairro: [null, Validators.required],
+      cidade: [null, Validators.required],
+      estado: [null, Validators.required],
     });
   }
   onSubmit() {
@@ -72,7 +86,7 @@ export class DataFormComponent implements OnInit {
     }
   }
 
-  aplicaErroCss(campo) {
+  aplicaErroCss(campo: string) {
     return {
       'has-error': this.validaFormulario(campo),
       'has-feedback': this.validaFormulario(campo)
