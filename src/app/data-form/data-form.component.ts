@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   preserveWhitespaces: true,
 })
 export class DataFormComponent implements OnInit {
- // aula-9-forms-data-driven-
+  // aula-9-forms-data-driven-
 
   public formulario: FormGroup;
   public respostaServidor: object;
@@ -35,7 +35,7 @@ export class DataFormComponent implements OnInit {
     });
      */
 
-   // estilo menos verboso, para formularios grandes
+    // estilo menos verboso, para formularios grandes
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3)]],
       email: ['paulo@paulo.com', [Validators.required, Validators.email]],
@@ -49,15 +49,18 @@ export class DataFormComponent implements OnInit {
         estado: [null, Validators.required],
       })
     });
+
+    // this.resetarFormulario();
+    this.limpaCampoCep();
   }
   onSubmit() {
     console.log('this.formulario: ', this.formulario.controls);
 
     this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
-    .subscribe(resposta => {
-      this.respostaServidor = resposta;
-      // this.resetarFormulario();
-    });
+      .subscribe(resposta => {
+        this.respostaServidor = resposta;
+        // this.resetarFormulario();
+      });
   }
   resetarFormulario() {
     this.formulario.reset();
@@ -85,13 +88,13 @@ export class DataFormComponent implements OnInit {
   verificaEmailRequerido() {
     const campoEmail = this.formulario.get('email');
     if (campoEmail.errors) {
-        return campoEmail.errors['required'] && campoEmail.touched;
+      return campoEmail.errors['required'] && campoEmail.touched;
     }
   }
   verificaEmailInvalido() {
     const campoEmail = this.formulario.get('email');
     if (campoEmail.errors) {
-        return campoEmail.errors['email'] && campoEmail.touched;
+      return campoEmail.errors['email'] && campoEmail.touched;
     }
   }
 
@@ -100,5 +103,71 @@ export class DataFormComponent implements OnInit {
       'has-error': this.validaFormulario(campo),
       'has-feedback': this.validaFormulario(campo)
     };
+  }
+  consultaCep() {
+    const cep = this.formulario.get('endereco.cep').value;
+
+    const cepLimpo = cep.replace(/\D/g, '');
+
+    if (cepLimpo != '') {
+      const validaCep = /^[0-9]{8}$/;
+
+      if (validaCep.test(cepLimpo)) {
+        this.http.get('https://viacep.com.br/ws/' + cepLimpo + '/json')
+          .subscribe(
+            (dados) => {
+              this.populaDadosForm(dados);
+              // this.preencheCamposCallback(cep);
+            }
+          );
+      } else {
+        this.limpaCampoCep();
+        alert('Formato de CEP incorreto, tente novamente!');
+      }
+    } else {
+      this.limpaCampoCep();
+    }
+  }
+  populaDadosForm(dados) {
+    this.formulario.setValue({
+      nome: this.formulario.get('nome').value,
+      email: this.formulario.get('email').value,
+      endereco: {
+        cep: dados.cep,
+        numero: '',
+        complemento: dados.complemento,
+        rua: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf,
+      }
+    });
+    /*
+    this.formulario.patchValue({
+      endereco: {
+        cep: dados.cep,
+        numero: '',
+        complemento: dados.complemento,
+        rua: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf,
+      }
+    });
+    */
+    this.formulario.get('nome').setValue('Paulo');
+  }
+  limpaCampoCep() {
+    this.formulario.patchValue({
+      endereco: {
+        cep: '',
+        numero: '',
+        complemento: '',
+        rua: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+      }
+    });
   }
 }
