@@ -54,21 +54,38 @@ export class DataFormComponent implements OnInit {
     this.limpaCampoCep();
   }
   onSubmit() {
-    console.log('this.formulario: ', this.formulario.controls);
-
-    this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
-      .subscribe(resposta => {
-        this.respostaServidor = resposta;
-        // this.resetarFormulario();
-      });
+    if (this.formulario.valid) {
+      this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
+        .subscribe(resposta => {
+          this.respostaServidor = resposta;
+          // this.resetarFormulario();
+        });
+    } else {
+      /*VERIFICAÇÃO BASICA SEM ANINHAMENTO DE CAMPOS*/
+      /*
+      Object.keys(this.formulario.controls).forEach((campo) => {
+        const controle = this.formulario.get(campo);
+        controle.markAsDirty();
+      });*/
+      this.verificaValidacoesFormularioGenerica(this.formulario);
+    }
   }
+  verificaValidacoesFormularioGenerica(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((campo) => {
+      console.log('campo: ', campo);
+      const controle = formGroup.get(campo);
+      controle.markAsDirty();
+      if (controle instanceof FormGroup) {
+        this.verificaValidacoesFormularioGenerica(controle);
+      }
+    });
+  }
+
   resetarFormulario() {
     this.formulario.reset();
   }
 
   validaFormulario(campo) {
-    console.log('campo: ', campo);
-    console.log('this.formulario.controls[campo]: ', this.formulario.controls);
     // return this.formulario.get(campo).invalid && this.formulario.controls[campo].touched;
     return this.formulario.get(campo).invalid;
   }
